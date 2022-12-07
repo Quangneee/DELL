@@ -1,0 +1,10 @@
+#!name=Lightroom
+#!desc=Unlock Lightroom
+#!author=https://t.me/MynameisDell
+#!icon=https://raw.githubusercontent.com/Quangneee/DELL/main/Lightroom/Lightroom.png
+
+[Script]
+http-request ^https:\/\/photos\.adobe\.io\/v2\/accounts* script-path=https://raw.githubusercontent.com/Quangneee/DELL/main/Lightroom/Lightroom.js
+
+[MITM]
+hostname = photos.adobe.io
