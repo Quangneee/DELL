@@ -1,0 +1,8 @@
+#!name=Nicegram
+#!desc=Unlock Nicegram
+#!author=https://t.me/MynameisDell
+#!icon=
+[Script]
+http-request=^https?:\/\/restore-access\.indream\.app\/restoreAccess\?id=\w+$,script-path=
+[MITM]
+hostname = restore-access.indream.app
