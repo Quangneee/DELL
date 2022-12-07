@@ -1,0 +1,10 @@
+#!name=Appraven
+#!desc=Unlock Appraven
+#!author=https://t.me/MynameisDell
+#!icon=https://raw.githubusercontent.com/Quangneee/DELL/main/Appraven/Appraven.png
+
+[Script]
+http-request ^https?:\/\/appraven\.net\/AppRaven\/(app|social|buy) script-path=https://raw.githubusercontent.com/Quangneee/DELL/main/Appraven/Appraven.js
+
+[MITM]
+hostname = %APPEND% appraven.net
