@@ -1,0 +1,10 @@
+#!name=WPSOffice
+#!desc=Unlock WPSOffice
+#!author=https://t.me/MynameisDell
+#!icon=https://raw.githubusercontent.com/Quangneee/DELL/main/WPSOffice/WPSOffice.png
+
+[Script]
+http-request ^https?:\/\/.*?account\.wps\.(com|cn)(:\d+)?\/api\/users\/\w+\/overview$ script-path=https://raw.githubusercontent.com/Quangneee/DELL/main/WPSOffice/WPSOffice.js
+
+[MITM]
+hostname = account.wps.cn,*account.wps.com
