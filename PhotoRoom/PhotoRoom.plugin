@@ -7,4 +7,4 @@
 http-request ^https:\/\/appapi\.neuralprisma\.com\/receipt\/ios\/status\/lensa script-path=https://raw.githubusercontent.com/Quangneee/DELL/main/PhotoRoom/PhotoRoom.js
 
 [MITM]
-hostname = appapi.neuralprisma.com
+hostname = api.revenuecat.com
