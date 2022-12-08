@@ -3,63 +3,38 @@ Chức năng kịch bản：Unlock PhotoRoom
 Phản hồi：https://t.me/MynameisDell
 */
 
-let obj = JSON.parse($response.body);
-obj =
+const resp = {};
+const obj = JSON.parse(typeof $response != "undefined" && $response.body || null);
 
-{
-  "request_date": "2022-10-16T01:39:23Z",
-  "request_date_ms": 1665884363350,
-  "subscriber": {
-    "entitlements": {
-      "business": {
-        "expires_date": "2022-07-14T03:31:23Z",
-        "grace_period_expires_date": null,
-        "product_identifier": "com.background.business.monthly",
-        "purchase_date": "2022-07-14T03:26:23Z"
-      },
-      "pro": {
-        "expires_date": "2995-05-07T02:36:10Z",
-        "grace_period_expires_date": null,
-        "product_identifier": "com.background.pro.yearly",
-        "purchase_date": "2022-10-16T01:36:10Z"
-      }
-    },
-    "first_seen": "2022-06-30T03:17:49Z",
-    "last_seen": "2022-10-16T01:04:48Z",
-    "management_url": "https://apps.apple.com/account/subscriptions",
-    "non_subscriptions": {},
-    "original_app_user_id": "Jx2s15BPbPXTVqeK6G5X8KbO80v2",
-    "original_application_version": "1.0",
-    "original_purchase_date": "2013-08-01T07:00:00Z",
-    "other_purchases": {},
-    "subscriptions": {
-      "com.background.business.monthly": {
-        "billing_issues_detected_at": null,
-        "expires_date": "2022-07-14T03:31:23Z",
-        "grace_period_expires_date": null,
-        "is_sandbox": true,
-        "original_purchase_date": "2022-05-21T23:58:50Z",
-        "ownership_type": "PURCHASED",
-        "period_type": "normal",
-        "purchase_date": "2022-07-14T03:26:23Z",
-        "store": "app_store",
-        "unsubscribe_detected_at": null
-      },
-      "com.background.pro.yearly": {
-        "billing_issues_detected_at": null,
-        "expires_date": "2995-05-07T02:36:10Z",
-        "grace_period_expires_date": null,
-        "is_sandbox": true,
-        "original_purchase_date": "2022-05-21T23:58:50Z",
-        "ownership_type": "PURCHASED",
-        "period_type": "normal",
-        "purchase_date": "2022-10-16T01:36:10Z",
-        "store": "app_store",
-        "unsubscribe_detected_at": null
-      }
-    }
-  }
+const ua = $request.headers['User-Agent'] || $request.headers['user-agent'];
+const list = {
+	'VSCO': { name: 'membership', id: 'com.circles.fin.premium.yearly' },
+	'1Blocker': { name: 'premium', id: 'blocker.ios.subscription.yearly' },
+	'Anybox': { name: 'pro', id: 'cc.anybox.Anybox.annual' },
+	'Fileball': { name: 'filebox_pro', id: 'com.premium.yearly' },
+	'ipTV': { name: 'ipTV +', id: 'iptv_9.99_1y_7d_free' }
+};
+const data = {
+	"expires_date": "2099-02-18T07:52:54Z",
+	"original_purchase_date": "2020-02-11T07:52:55Z",
+	"purchase_date": "2020-02-11T07:52:54Z"
+};
+
+if (typeof $response == "undefined") {
+	delete $request.headers["x-revenuecat-etag"]; // prevent 304 issues
+	delete $request.headers["X-RevenueCat-ETag"];
+	resp.headers = $request.headers;
+} else if (obj && obj.subscriber) {
+	obj.subscriber.subscriptions = obj.subscriber.subscriptions || {};
+	obj.subscriber.entitlement = obj.subscriber.entitlement || {};
+	for (const i in list) {
+		if (new RegExp(`^${i}`, `i`).test(ua)) {
+			obj.subscriber.subscriptions[list[i].id] = data;
+			obj.subscriber.entitlements[list[i].name] = JSON.parse(JSON.stringify(data));
+			obj.subscriber.entitlements[list[i].name].product_identifier = list[i].id;
+			break;
+		}
+	}
+	resp.body = JSON.stringify(obj).replace(/\"expires_date\":\"\w{4}/g, "\"expires_date\":\"2099").replace(/\"period_type\":\"\w+\"/g, "\"period_type\":\"active\"");
 }
-
-
-$done({body: JSON.stringify(obj)});
+$done(resp);
