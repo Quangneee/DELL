@@ -6,5 +6,6 @@
 [Script]
 http-request ^https:\/\/(api\.revenuecat\.com\/v\d\/subscribers|vsco\.co\/api\/subscriptions\/\d\.\d\/user-subscriptions)\/ script-path=https://raw.githubusercontent.com/Quangneee/DELL/main/VSCO/VSCO.js
 http-response ^https:\/\/(api\.revenuecat\.com\/v\d\/subscribers|vsco\.co\/api\/subscriptions\/\d\.\d\/user-subscriptions)\/ requires-body=1,script-path=https://raw.githubusercontent.com/Quangneee/DELL/main/VSCO/VSCO.js
+
 [MITM]
 hostname = api.revenuecat.com, vsco.co
