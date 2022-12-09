@@ -1,5 +1,5 @@
 /*
-Chức năng kịch bản：Unlock Xmind- Mind Map & Brainstorm
+Chức năng kịch bản：Unlock Xmind
 Phản hồi：https://t.me/MynameisDell
 */
 
