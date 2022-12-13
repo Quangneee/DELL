@@ -1,0 +1,10 @@
+#!name=Camscanner
+#!desc=Unlock Camscanner
+#!author=https://t.me/MynameisDell
+#!icon=https://raw.githubusercontent.com/Quangneee/DELL/main/Camscanner/Camscanner.png
+
+[Script]
+http-response https:\/\/(api|api-cs)\.intsig\.net\/purchase\/cs\/query_property\? requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/Quangneee/DELL/main/Camscanner/Camscanner.js
+
+[MITM]
+hostname = ap*.intsig.net
